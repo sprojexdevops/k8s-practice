@@ -27,7 +27,7 @@ resource "null_resource" "k8s_workstation" {
     host     = module.k8s_workstation.public_ip
     type     = "ssh"
     user     = "ec2-user"
-    password = "DevOps321"
+    password = var.pswd
   }
 
   # Copy the file from local and run inside the remote server
