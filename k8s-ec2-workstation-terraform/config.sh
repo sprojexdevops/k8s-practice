@@ -1,5 +1,9 @@
 #!/bin/bash
 
+AWS_ACCESS_KEY_ID=$1
+AWS_ACCESS_KEY_SECRET=$2
+AWS_REGION=$3
+
 # Install Docker
 yum install -y yum-utils
 yum-config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
@@ -18,3 +22,6 @@ PLATFORM=$(uname -s)_$ARCH
 curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
 tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
 sudo mv /tmp/eksctl /usr/local/bin
+
+# aws configure
+aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID" && aws configure set aws_secret_access_key "$AWS_ACCESS_KEY_SECRET" && aws configure set region "$AWS_REGION"

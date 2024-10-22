@@ -40,7 +40,7 @@ resource "null_resource" "k8s_workstation" {
     # Bootstrap script called with private_ip of each node in the cluster
     inline = [
       "chmod +x /tmp/config.sh",
-      "sudo sh /tmp/config.sh"
+      "sudo sh /tmp/config.sh ${var.AWS_ACCESS_KEY_ID} ${AWS_ACCESS_KEY_SECRET} ${AWS_REGION}"
     ]
   }
 }
