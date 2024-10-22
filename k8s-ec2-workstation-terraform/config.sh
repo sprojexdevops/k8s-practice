@@ -9,8 +9,8 @@ usermod -aG docker ec2-user
 
 # Install kubectl
 curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.29.8/2024-09-11/bin/linux/amd64/kubectl
-chmod +x /kubectl
-sudo mv kubectl /usr/local/bin/kubectl
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
 
 # Install eksctl
 ARCH=amd64
