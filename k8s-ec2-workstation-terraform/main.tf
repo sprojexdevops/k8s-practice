@@ -7,7 +7,7 @@ module "k8s_workstation" {
   name = "k8s-workstation"
 
   instance_type          = "t3.micro"
-  vpc_security_group_ids = [sg-0a1fb132f1fc1e49d]
+  vpc_security_group_ids = ["sg-0a1fb132f1fc1e49d"]
   subnet_id              = "subnet-08b4b98f8c9b97078"
 
   tags = {
@@ -37,7 +37,6 @@ resource "null_resource" "k8s_workstation" {
   }
 
   provisioner "remote-exec" {
-    # Bootstrap script called with private_ip of each node in the cluster
     inline = [
       "chmod +x /tmp/config.sh",
       "sudo sh /tmp/config.sh ${var.AWS_ACCESS_KEY_ID} ${AWS_ACCESS_KEY_SECRET} ${AWS_REGION}"
