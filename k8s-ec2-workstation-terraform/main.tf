@@ -4,17 +4,43 @@ module "k8s_workstation" {
   source = "terraform-aws-modules/ec2-instance/aws"
 
   ami  = data.aws_ami.ami.id
-  name = local.resource_name
+  name = "k8s-workstation"
 
   instance_type          = "t3.micro"
-  vpc_security_group_ids = [local.bastion_sg_id]
-  subnet_id              = local.public_subnet_id
+  vpc_security_group_ids = [sg-0a1fb132f1fc1e49d]
+  subnet_id              = "subnet-08b4b98f8c9b97078"
 
-  tags = merge(
-    var.common_tags,
-    var.bastion_tags,
-    {
-      Name = local.resource_name
-    }
-  )
+  tags = {
+    Name = "k8s-workstation"
+    Terraform = "True"
+  }
+}
+
+resource "null_resource" "k8s_workstation" {
+  # Change of instance id requires re-provisioning
+  triggers = {
+    instance_id = module.k8s_workstation.id
+  }
+
+  # Connect to the server remotely and run the script 
+  connection {
+    host     = module.k8s_workstation.public_ip
+    type     = "ssh"
+    user     = "ec2-user"
+    password = "DevOps321"
+  }
+
+  # Copy the file from local and run inside the remote server
+  provisioner "file" {
+    source      = "config.sh"
+    destination = "/tmp/config.sh"
+  }
+
+  provisioner "remote-exec" {
+    # Bootstrap script called with private_ip of each node in the cluster
+    inline = [
+      "chmod +x /tmp/config.sh",
+      "sudo sh /tmp/config.sh"
+    ]
+  }
 }
