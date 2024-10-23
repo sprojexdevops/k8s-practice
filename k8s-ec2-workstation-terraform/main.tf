@@ -39,7 +39,14 @@ resource "null_resource" "k8s_workstation" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x /tmp/config.sh",
-      "sudo sh /tmp/config.sh ${var.AWS_ACCESS_KEY_ID} ${var.AWS_ACCESS_KEY_SECRET} ${var.AWS_REGION}"
+      "sudo sh /tmp/config.sh"
     ]
   }
+
+  # provisioner "remote-exec" {
+  #   inline = [
+  #     "chmod +x /tmp/config.sh",
+  #     "sudo sh /tmp/config.sh ${var.AWS_ACCESS_KEY_ID} ${var.AWS_ACCESS_KEY_SECRET} ${var.AWS_REGION}"
+  #   ]
+  # }
 }

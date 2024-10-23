@@ -1,8 +1,5 @@
 #!/bin/bash
 
-AWS_ACCESS_KEY_ID=$1
-AWS_ACCESS_KEY_SECRET=$2
-AWS_REGION=$3
 
 # Install Docker
 yum install -y yum-utils
@@ -23,5 +20,9 @@ curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$
 tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
 sudo mv /tmp/eksctl /usr/local/bin
 
-# aws configure
-aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID" && aws configure set aws_secret_access_key "$AWS_ACCESS_KEY_SECRET" && aws configure set region "$AWS_REGION"
+
+# # aws configure
+# KEY_ID=$1
+# KEY_SECRET=$2
+# REGION=$3
+# aws configure set aws_access_key_id "$KEY_ID" && aws configure set aws_secret_access_key "$KEY_SECRET" && aws configure set region "$REGION"
