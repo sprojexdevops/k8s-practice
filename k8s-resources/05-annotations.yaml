@@ -1,0 +1,13 @@
+# Annotations - used for k8s external resource selectors
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: annotations
+  annotaions:
+    imageregistry: "https://hub.docker.com"
+    buildurl: "https://jenkins.abc.com/expene/backend/build/53"
+spec:
+  containers:
+  - name: nginx
+    image: nginx
