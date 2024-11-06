@@ -3,6 +3,7 @@ apiVersion: v1
 metadata:
   name: nginx
 spec:
+  # here 'V' of place holder should be in upper case, whereas 'v' of values.yaml in lower case
   type: {{ .Values.service.type }}
   selector:
     tier: frontend
