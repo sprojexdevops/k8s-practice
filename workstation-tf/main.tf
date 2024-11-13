@@ -9,6 +9,7 @@ module "workstation" {
   subnet_id = var.public_subnet_id
   ami = data.aws_ami.ami_info.id
   user_data = file("workstation.sh")
+  # after completing, need to run aws configure after login to server
   tags = {
         Name = "workstation"
     }
