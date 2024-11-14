@@ -55,7 +55,11 @@ kubectl get pods -n kube-system
 kubectl get sa -n kube-system
 ```
 
-### if no service account is found for aws-load-balancer-controller then run the helm install command by changing --set serviceAccount.create to true
+### if no service account is found for aws-load-balancer-controller then uninstall and install helm command by changing --set serviceAccount.create to true
+
+```
+helm uninstall aws-load-balancer-controller -n kube-system
+```
 
 ```
 helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=<cluster-name> --set serviceAccount.create=true --set serviceAccount.name=aws-load-balancer-controller
