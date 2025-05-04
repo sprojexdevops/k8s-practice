@@ -3,6 +3,7 @@ original doc:
 https://medium.com/@vajrapusri08/deploying-agic-and-aks-with-terraform-via-azure-pipelines-helm-based-greenfield-%EF%B8%8F-%EF%B8%8F-f909fc3c305c
 ```
 video links:
+
 Part-1
 ```
 https://www.youtube.com/watch?v=BXYW7pPI1HI
