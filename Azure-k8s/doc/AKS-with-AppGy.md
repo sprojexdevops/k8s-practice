@@ -5,12 +5,10 @@ https://medium.com/@vajrapusri08/deploying-agic-and-aks-with-terraform-via-azure
 video links:
 Part-1
 ```
-https://lnkd.in/gaqHNFGm 
 https://www.youtube.com/watch?v=BXYW7pPI1HI
 ```
 Part-2
 ```
-https://lnkd.in/gjz77WP7
 https://www.youtube.com/watch?v=hTBTVkkqRYE
 ```
 
