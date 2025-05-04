@@ -1,0 +1,32 @@
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+- stage: terraformdestroy
+  jobs:
+  - job: terraformdestroy
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: TerraformInstaller@1
+      inputs:
+        terraformVersion: 'latest'
+    - task: TerraformTaskV4@4
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-aks/'
+        backendServiceArm: 'Azure subscription 1(2cab150b-4433-4b0e-95a8-fabb980b3485)'
+        backendAzureRmResourceGroupName: 'mytestrg'
+        backendAzureRmStorageAccountName: 'myexpsa'
+        backendAzureRmContainerName: 'mytestcontainer'
+        backendAzureRmKey: 'test.terraform.tfstate'
+    - task: TerraformTaskV4@4
+      inputs:
+        provider: 'azurerm'
+        command: 'destroy'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-aks/'
+        commandOptions: '--auto-approve'
+        environmentServiceNameAzureRM: 'Azure subscription 1(2cab150b-4433-4b0e-95a8-fabb980b3485)'

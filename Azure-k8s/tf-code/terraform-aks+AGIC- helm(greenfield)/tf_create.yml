@@ -1,0 +1,69 @@
+trigger:
+  branches:
+    include:
+    - main
+    - feature/*
+  paths:
+    include:
+    - terraform-aks/*
+    - tf_create.yml
+
+# pool:
+#   vmImage: ubuntu-latest
+
+stages:
+- stage: Validate
+  jobs:
+  - job: terraform_validate
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: TerraformInstaller@1
+      inputs:
+        terraformVersion: 'latest'
+    - task: TerraformTaskV4@4
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-aks/'
+        backendServiceArm: 'Azure subscription 1(2cab150b-4433-4b0e-95a8-fabb980b3485)'
+        backendAzureRmResourceGroupName: 'mytestrg'
+        backendAzureRmStorageAccountName: 'myexpsa'
+        backendAzureRmContainerName: 'mytestcontainer'
+        backendAzureRmKey: 'test.terraform.tfstate'
+
+
+
+    - task: TerraformTaskV4@4
+      inputs:
+        provider: 'azurerm'
+        command: 'validate'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-aks/'
+
+- stage: Dev_Deploy
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  jobs:
+  - job: terraform_apply_dev
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: TerraformInstaller@1
+      inputs:
+        terraformVersion: 'latest'
+    - task: TerraformTaskV4@4
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-aks/'
+        backendServiceArm: 'Azure subscription 1(2cab150b-4433-4b0e-95a8-fabb980b3485)'
+        backendAzureRmResourceGroupName: 'mytestrg'
+        backendAzureRmStorageAccountName: 'myexpsa'
+        backendAzureRmContainerName: 'mytestcontainer'
+        backendAzureRmKey: 'test.terraform.tfstate'
+    - task: TerraformTaskV4@4
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-aks/'
+        commandOptions: '--auto-approve'
+        environmentServiceNameAzureRM: 'Azure subscription 1(2cab150b-4433-4b0e-95a8-fabb980b3485)'

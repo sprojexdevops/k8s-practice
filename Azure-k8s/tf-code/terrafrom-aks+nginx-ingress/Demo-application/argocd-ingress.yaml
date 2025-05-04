@@ -1,0 +1,109 @@
+# this is working.......
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd-ingress
+  namespace: argocd
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP" # Use HTTP if the service exposes port 80
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod" # Use your actual cluster issuer name
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true" # Force SSL redirect
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: argocd.skanth306.shop # Replace with your actual domain
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: argocd-server
+              port:
+                number: 443 # Use port 80 if the service exposes HTTP
+  tls:
+  - hosts:
+    - "*.skanth306.shop" # Replace with your actual domain
+    secretName: letsencrypt-prod-cluster-issuer # (from the clusterissuer manifest)The name of the secret that contains the TLS certificate and key
+
+
+
+# resource "helm_release" "argocd" {
+#   name             = "argocd"
+#   repository       = "https://argoproj.github.io/argo-helm"
+#   chart            = "argo-cd"
+#   version          = "7.8.23"
+#   namespace        = "argocd"
+#   create_namespace = true
+#   cleanup_on_fail  = true
+#   recreate_pods    = true
+#   replace          = true
+
+#   set =[
+#     {
+#       name  = "server.service.type"
+#       value = "ClusterIP" #LoadBalancer #ClusterIP #NodePort
+#     },
+#     {
+#       name  = "server.ingress.enabled"
+#       value = "false"
+#     },
+#     {
+#       name  = "server.ingress.ingressClassName"
+#       value = "nginx"
+#     },
+#     {
+#       name  = "server.extraArgs[0]"
+#       value = "--insecure"
+#     },
+#   ]
+#   depends_on = [helm_release.nginx_ingress]
+# }
+
+
+###################
+#not working
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: argocd-ingress
+#   namespace: argocd
+#   annotations:
+#     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+#     # nginx.ingress.kubernetes.io/rewrite-target: /
+#     nginx.ingress.kubernetes.io/ssl-redirect: "false"
+# spec:
+#   ingressClassName: nginx
+#   rules:
+#     - http:
+#         paths:
+#           - path: /argocd
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: argocd-server
+#                 port:
+#                   number: 443
+#########################################################
+# this is working.......
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: argocd-ingress
+#   namespace: argocd
+#   annotations:
+#     nginx.ingress.kubernetes.io/backend-protocol: "HTTP" # Use HTTP if the service exposes port 80
+#     nginx.ingress.kubernetes.io/ssl-redirect: "false"
+# spec:
+#   ingressClassName: nginx
+#   rules:
+#     - http:
+#         paths:
+#           - path: /
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: argocd-server
+#                 port:
+#                   number: 80 # Use port 80 if the service exposes HTTP
