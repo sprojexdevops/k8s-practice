@@ -1,4 +1,18 @@
-(https://medium.com/@vajrapusri08/deploying-agic-and-aks-with-terraform-via-azure-pipelines-helm-based-greenfield-%EF%B8%8F-%EF%B8%8F-f909fc3c305c)
+original doc:
+```
+https://medium.com/@vajrapusri08/deploying-agic-and-aks-with-terraform-via-azure-pipelines-helm-based-greenfield-%EF%B8%8F-%EF%B8%8F-f909fc3c305c
+```
+video links:
+Part-1
+```
+https://lnkd.in/gaqHNFGm 
+https://www.youtube.com/watch?v=BXYW7pPI1HI
+```
+Part-2
+```
+https://lnkd.in/gjz77WP7
+https://www.youtube.com/watch?v=hTBTVkkqRYE
+```
 
 Azure Kubernetes Service (AKS) paired with Application Gateway Ingress Controller (AGIC) is a modern approach to managing ingress traffic securely, salable, and efficiently. In this blog, we’ll dive deep into the different AGIC deployment modes and focus on the Greenfield Helm-based deployment using Terraform — a powerful combination for cloud-native infrastructure builders.
 
