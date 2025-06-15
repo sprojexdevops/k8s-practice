@@ -8,6 +8,7 @@ spec:
       # hard ware
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
+        # if the values of the expression doesn't match it is anti-affinity
         - matchExpressions:
           - key: hardware
             operator: In

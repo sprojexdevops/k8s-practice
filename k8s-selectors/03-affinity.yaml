@@ -6,6 +6,9 @@ spec:
   affinity:
     nodeAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
+      # preferredDuringSchedulingIgnoredDuringExecution is a list of dictionaries
+      # weight (1 to 100) is the priority assigned to the expression and the preference with least weight will have more priority
+      # for example, the below expression will be preferred but if there is no node with this label the pod is still scheduled
       - weight: 1
         preference:
           matchExpressions:
