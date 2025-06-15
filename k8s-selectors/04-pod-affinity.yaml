@@ -1,3 +1,4 @@
+# pod affinity and anti-affinity
 apiVersion: v1
 kind: Pod
 metadata:
