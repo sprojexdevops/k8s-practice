@@ -5,6 +5,7 @@
 https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/
 ```
 
+### Ingress controller is outside of k8s cluster, so create an IAM service to give access to cluster to manage it
 ```
 eksctl utils associate-iam-oidc-provider \
     --region <xxxxxx> \
